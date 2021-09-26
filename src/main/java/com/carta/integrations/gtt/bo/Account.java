@@ -35,4 +35,25 @@ public abstract class Account {
                 '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Account account = (Account) o;
+
+        if (addressBankID != null ? !addressBankID.equals(account.addressBankID) : account.addressBankID != null)
+            return false;
+        if (accountHolder != null ? !accountHolder.equals(account.accountHolder) : account.accountHolder != null)
+            return false;
+        return addressAccountID != null ? addressAccountID.equals(account.addressAccountID) : account.addressAccountID == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = addressBankID != null ? addressBankID.hashCode() : 0;
+        result = 31 * result + (accountHolder != null ? accountHolder.hashCode() : 0);
+        result = 31 * result + (addressAccountID != null ? addressAccountID.hashCode() : 0);
+        return result;
+    }
 }

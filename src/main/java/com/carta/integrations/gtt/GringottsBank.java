@@ -17,6 +17,8 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static com.carta.integrations.gtt.util.FileUtil.readTxtFile;
+
 public class GringottsBank {
     private final Logger LOG = Logger.getLogger(String.valueOf(GringottsBank.class));
     private String bankIdentifier = "GTTB";
@@ -47,7 +49,9 @@ public class GringottsBank {
                 while (i < lines.size() && !lines.get(i).strip().startsWith(bankIdentifier)) {
                     Transaction transaction = new Transaction();
                     transaction.setTransactionID(lines.get(i).strip());
-                    transaction.setSrcAccount(new SrcAccount(lines.get(i + 1).strip()));
+                    SrcAccount srcAccount = new SrcAccount(lines.get(i + 1).strip());
+//                    srcAccount.increment();
+                    transaction.setSrcAccount(srcAccount);
                     transaction.setDstAccount(new DestAccount(lines.get(i + 2).strip()));
                     transaction.setCurrency(lines.get(i + 3).strip().substring(0, 3));
                     transaction.setAmount(new BigDecimal(lines.get(i + 3).strip().substring(3)));
@@ -59,19 +63,10 @@ public class GringottsBank {
                 throw new IntegrationDataFormatException(exception);
             }
         }
-        return null;
+        return transactionBatchList;
     }
 
-    private List<String> readTxtFile(String file) {
-//        try (Stream<String> lines = Files.lines(Paths.get(file), Charset.defaultCharset())) {
-        try (Stream<String> lines = Files.lines(Paths.get(file))) {
-            return lines.collect(Collectors.toList());
-        } catch (IOException e) {
-            LOG.log(Level.SEVERE, "error in parsing GTT Bank file");
-            e.printStackTrace();
-        }
-        return null;
-    }
+
 
     public List<TransactionBatch> getTransactionBatchList() {
         return transactionBatchList;
