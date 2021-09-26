@@ -1,4 +1,4 @@
-package com.carta.integrations;
+package com.carta.integrations.other_banks;
 
 import java.math.BigInteger;
 import java.util.Map;

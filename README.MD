@@ -15,7 +15,7 @@ Refactor the existing codebase as appropriate to support this new integration.
 You can print the current reports as follows:
 ```
 gradle run --args="acme_bank"
-gradle run --args="sweet_bank"
+gradle  run --args="sweet_bank"
 ```
 
 To install Gradle 

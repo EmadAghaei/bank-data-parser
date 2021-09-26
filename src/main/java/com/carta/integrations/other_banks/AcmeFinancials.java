@@ -1,4 +1,4 @@
-package com.carta.integrations;
+package com.carta.integrations.other_banks;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
